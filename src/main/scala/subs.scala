@@ -3,7 +3,7 @@ class SUBS {
     def _find(i: Int): List[Int] = {
       str.indexOf(substr, i) match {
         case -1 => Nil
-        case x => x :: _find(x + 1)
+        case x => (x + 1) :: _find(x + 1)
       }
     }
 
