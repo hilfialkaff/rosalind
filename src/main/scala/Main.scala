@@ -68,7 +68,8 @@ object Main {
     {
       val perm = new PERM()
       val i = Source.fromURL(getClass().getResource("perm.txt")).getLines().next().toInt
-      /* Commented out due to too much output. */
+
+      /* Commented out due to excessive output. */
       // println("PERM: " + perm.enumerate(i) + " " + perm.factorial(i))
     }
 
@@ -86,15 +87,50 @@ object Main {
       println("IPRB: " + iprb.compute(line(0).toDouble, line(1).toDouble, line(2).toDouble))
     }
 
-
     /* Overlap Graphs */
     {
       val grph = new GRPH()
       val fasta = new FASTA()
       val line = Source.fromURL(getClass().getResource("grph.txt")).getLines().mkString(" ")
       val strings = fasta.parse(line)
-      println("GRPH: ")
-      grph.compute(strings).foreach{ case (dna1, dna2) => println(dna1 + " " + dna2)}
+
+      /* Commented out due to excessive output. */
+      // print("GRPH: ")
+      // grph.compute(strings).foreach{ case (dna1, dna2) => println(dna1 + " " + dna2)}
+    }
+
+    /* RNA Splicing */
+    {
+      val splc = new SPLC()
+      val fasta = new FASTA()
+      val line = Source.fromURL(getClass().getResource("splc.txt")).getLines().mkString(" ")
+      val strings = fasta.parse(line)
+      println("SPLC: " + splc.splice(strings.head._2, strings.tail.map(x => x._2)))
+    }
+
+    /* Transitions and Transversions */
+    {
+      val tran = new TRAN()
+      val fasta = new FASTA()
+      val line = Source.fromURL(getClass().getResource("tran.txt")).getLines().mkString(" ")
+      val strings = fasta.parse(line)
+      println("TRAN: " + tran.compute(strings(0)._2, strings(1)._2))
+    }
+
+    /* Calculating Expected Offspring */
+    {
+      val line = Source.fromURL(getClass().getResource("iev.txt")).getLines().next()
+      val iev = new IEV()
+      println("IEV: " + iev.compute(line.split(' ').map(_.toInt).toList))
+    }
+
+    /* Finding a Shared Motif */
+    {
+      val lcsm = new LCSM()
+      val fasta = new FASTA()
+      val line = Source.fromURL(getClass().getResource("lcsm.txt")).getLines().mkString(" ")
+      val strings = fasta.parse(line)
+      println("LCSM: " + lcsm.compute(strings.map(_._2)))
     }
   }
 }
